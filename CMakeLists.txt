@@ -64,8 +64,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${g2o_RUNTIME_OUTPUT_DIRECTORY})
 # This behavior is part of the ELF dynamic tags (DT_RUNPATH vs. DT_RPATH) and is intended
 # to give LD_LIBRARY_PATH precedence over RPATH, which was not the case with older linkers.
 # Only tested on Ubuntu.
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--disable-new-dtags")
+if(NOT APPLE)
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--disable-new-dtags")
+endif()
 
 # Set standard installation directories
 set(RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR})
